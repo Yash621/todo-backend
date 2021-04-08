@@ -1,0 +1,27 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Todo {
+  """task of the todolist"""
+  task: String!
+
+  """completion status of task of the todolist"""
+  isCompleted: Boolean!
+}
+
+type Query {
+  sayHelloToBugs: String!
+}
+
+type Mutation {
+  createTodo(TodoInput: TodoInput!): Todo!
+}
+
+input TodoInput {
+  """task of the todolist"""
+  task: String!
+
+  """completion status of task of the todolist"""
+  isCompleted: Boolean!
+}
