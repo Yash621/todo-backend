@@ -19,9 +19,6 @@ export class TodoService {
     const res = await todo.save();
     return res;
   }
-  async createMany(payload: Array<UpdateTodoInput>) {
-    const todos = await this.todoModel.aggregate(payload);
-  }
 
   /* ---------------------------------- READ ---------------------------------- */
   async findOneById(id: string) {
@@ -37,11 +34,7 @@ export class TodoService {
     return todos;
   }
   /* --------------------------------- UPDATE --------------------------------- */
-  async updateOne(payload: {
-    task?: string;
-    id: string;
-    isCompleted?: boolean;
-  }) {
+  async updateOne(payload: UpdateTodoInput) {
     if (payload.task) {
       const todo = await this.todoModel.updateOne(
         { id: payload.id },
@@ -60,16 +53,19 @@ export class TodoService {
     );
     return todo;
   }
-  // async updateMany(
-  //   payload: Array<{
-  //     task?: string;
-  //     id: string;
-  //     isCompleted?: boolean;
-  //   }>,
-  // ) {
-  //   const todos = await this.todoModel.bulkWrite();
-  // }
+
   /* --------------------------------- DELETE --------------------------------- */
-  async deleteOne() {}
-  async deleteAll() {}
+  async deleteOne(id: string) {
+    return this.deleteOne(id);
+  }
+
+  async deleteAll() {
+    const res = await this.deleteAll();
+    console.log(res);
+    return res;
+  }
+
+  async deleteMany(ids: Array<string>) {
+    return this.deleteMany(ids);
+  }
 }

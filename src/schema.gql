@@ -11,11 +11,16 @@ type Todo {
 }
 
 type Query {
-  sayHelloToBugs: String!
+  findAll: Todo!
+  findOne: Todo!
 }
 
 type Mutation {
   createTodo(TodoInput: TodoInput!): Todo!
+  updateOne(UpdateTodoInput: UpdateTodoInput!): [Todo!]!
+  delete: [Todo!]!
+  deleteAll: [Todo!]!
+  deleteMany: [Todo!]!
 }
 
 input TodoInput {
@@ -24,4 +29,15 @@ input TodoInput {
 
   """completion status of task of the todolist"""
   isCompleted: Boolean!
+}
+
+input UpdateTodoInput {
+  """task of the todolist"""
+  task: String!
+
+  """completion status of task of the todolist"""
+  isCompleted: Boolean!
+
+  """id of the todolist"""
+  id: String!
 }

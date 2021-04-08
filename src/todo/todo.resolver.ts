@@ -7,21 +7,50 @@ import { Todo } from './entities/todo.entity';
 export class TodoResolver {
   constructor(private readonly _todoService: TodoService) {}
 
-  @Query(() => String)
-  sayHelloToBugs() {
-    return 'this aint a bug its a feature';
+  /* -------------------------------------------------------------------------- */
+  /*                                    QUERY                                   */
+  /* -------------------------------------------------------------------------- */
+
+  /* ---------------------------------- READ ---------------------------------- */
+
+  @Query(() => Todo)
+  findAll() {
+    return this._todoService.findAll();
   }
+  @Query(() => Todo)
+  findOne(id: string) {
+    return this._todoService.findOneById(id);
+  }
+  /* -------------------------------------------------------------------------- */
+  /*                                  MUTATION                                  */
+  /* -------------------------------------------------------------------------- */
+
+  /* --------------------------------- CREATE --------------------------------- */
 
   @Mutation(() => Todo)
   createTodo(@Args('TodoInput') payload: TodoInput) {
     return this._todoService.create(payload);
   }
+  /* --------------------------------- UPDATE --------------------------------- */
+
   @Mutation(() => [Todo])
-  createMany(@Args('CreateManyInput') payload: Array<Todo>) {
-    return this._todoService.createMany(payload);
+  updateOne(@Args('UpdateTodoInput') payload: UpdateTodoInput) {
+    return this._todoService.updateOne(payload);
   }
+  /* --------------------------------- DELETE --------------------------------- */
+
   @Mutation(() => [Todo])
-  update(@Args('updateInput') payload: UpdateTodoInput) {
-    return this._todoService.createMany(UpdateTodoInput);
+  delete(id: string) {
+    return this._todoService.deleteOne(id);
+  }
+
+  @Mutation(() => [Todo])
+  deleteAll() {
+    return this._todoService.deleteAll();
+  }
+
+  @Mutation(() => [Todo])
+  deleteMany(ids: Array<string>) {
+    return this._todoService.deleteMany(ids);
   }
 }
