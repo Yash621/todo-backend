@@ -1,9 +1,17 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { MongooseModule } from '@nestjs/mongoose';
+import { GraphQLModule } from '@nestjs/graphql';
 
 @Module({
-  imports: [],
+  imports: [
+    MongooseModule.forRoot('mongodb://localhost/nest'),
+    GraphQLModule.forRoot({
+      include: [],
+      autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
+    }),
+  ],
   controllers: [AppController],
   providers: [AppService],
 })
