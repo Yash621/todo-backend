@@ -65,10 +65,7 @@ export class TodoService {
       isCompleted?: boolean;
     }>,
   ) {
-    const todos = await this.todoModel.updateMany({
-      task: task,
-      isCompleted: isCompleted,
-    });
+    const todos = await this.todoModel.bulkWrite();
   }
   /* --------------------------------- DELETE --------------------------------- */
   async deleteOne() {}
