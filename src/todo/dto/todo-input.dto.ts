@@ -14,3 +14,9 @@ export class UpdateTodoInput extends TodoInput {
   @Field(() => String, { description: 'id of the todolist' })
   id: string;
 }
+
+@InputType()
+export class IdsInput {
+  @Field(() => [String], { description: 'ids of the todolist' })
+  id: Array<string>;
+}

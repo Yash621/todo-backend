@@ -1,7 +1,8 @@
 import { Resolver, Mutation, Args, Query } from '@nestjs/graphql';
 import { TodoService } from './todo.service';
-import { TodoInput, UpdateTodoInput } from './dto/todo-input.dto';
-import { Todo } from './entities/todo.entity';
+import { IdsInput, TodoInput, UpdateTodoInput } from './dto/todo-input.dto';
+import { Todo, TodoDelete } from './entities/todo.entity';
+
 
 @Resolver(() => Todo)
 export class TodoResolver {
@@ -18,7 +19,7 @@ export class TodoResolver {
     return this._todoService.findAll();
   }
   @Query(() => Todo)
-  findOne(@Args('') id: string) {
+  findOne(@Args('id') id: string) {
     return this._todoService.findOneById(id);
   }
   /* -------------------------------------------------------------------------- */
@@ -39,18 +40,18 @@ export class TodoResolver {
   }
   /* --------------------------------- DELETE --------------------------------- */
 
-  @Mutation(() => [Todo])
+  @Mutation(() => Todo)
   delete(@Args('id') id: string) {
     return this._todoService.deleteOne(id);
   }
 
-  @Mutation(() => [Todo])
+  @Mutation(() => Number)
   deleteAll() {
     return this._todoService.deleteAll();
   }
 
-  @Mutation(() => [Todo])
-  deleteMany(ids: Array<string>) {
-    return this._todoService.deleteMany(ids);
+  @Mutation(() => Number)
+  deleteMany(@Args('IdsInput') payload: IdsInput) {
+    return this._todoService.deleteManybyIds(payload);
   }
 }

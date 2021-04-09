@@ -3,6 +3,8 @@
 # ------------------------------------------------------
 
 type Todo {
+  id: String!
+
   """task of the todolist"""
   task: String!
 
@@ -16,11 +18,19 @@ type Query {
 }
 
 type Mutation {
-  createTodo: Todo!
+  createTodo(TodoInput: TodoInput!): Todo!
   updateOne(UpdateTodoInput: UpdateTodoInput!): [Todo!]!
-  delete: [Todo!]!
-  deleteAll: [Todo!]!
-  deleteMany: [Todo!]!
+  delete(id: String!): Todo!
+  deleteAll: Float!
+  deleteMany(IdsInput: IdsInput!): Float!
+}
+
+input TodoInput {
+  """task of the todolist"""
+  task: String!
+
+  """completion status of task of the todolist"""
+  isCompleted: Boolean!
 }
 
 input UpdateTodoInput {
@@ -32,4 +42,9 @@ input UpdateTodoInput {
 
   """id of the todolist"""
   id: String!
+}
+
+input IdsInput {
+  """ids of the todolist"""
+  id: [String!]!
 }
