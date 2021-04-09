@@ -12,23 +12,15 @@ type Todo {
 
 type Query {
   findAll: Todo!
-  findOne: Todo!
+  findOne(id: String!): Todo!
 }
 
 type Mutation {
-  createTodo(TodoInput: TodoInput!): Todo!
+  createTodo: Todo!
   updateOne(UpdateTodoInput: UpdateTodoInput!): [Todo!]!
   delete: [Todo!]!
   deleteAll: [Todo!]!
   deleteMany: [Todo!]!
-}
-
-input TodoInput {
-  """task of the todolist"""
-  task: String!
-
-  """completion status of task of the todolist"""
-  isCompleted: Boolean!
 }
 
 input UpdateTodoInput {

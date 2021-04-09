@@ -18,7 +18,7 @@ export class TodoResolver {
     return this._todoService.findAll();
   }
   @Query(() => Todo)
-  findOne(id: string) {
+  findOne(@Args('') id: string) {
     return this._todoService.findOneById(id);
   }
   /* -------------------------------------------------------------------------- */
@@ -40,7 +40,7 @@ export class TodoResolver {
   /* --------------------------------- DELETE --------------------------------- */
 
   @Mutation(() => [Todo])
-  delete(id: string) {
+  delete(@Args('id') id: string) {
     return this._todoService.deleteOne(id);
   }
 

@@ -1,6 +1,5 @@
 import { Field, InputType } from '@nestjs/graphql';
 
-
 @InputType()
 export class TodoInput {
   @Field(() => String, { description: 'task of the todolist' })
@@ -13,6 +12,5 @@ export class TodoInput {
 @InputType()
 export class UpdateTodoInput extends TodoInput {
   @Field(() => String, { description: 'id of the todolist' })
-id: string;
-
+  id: string;
 }
