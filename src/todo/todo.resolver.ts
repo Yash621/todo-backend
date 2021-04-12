@@ -3,7 +3,6 @@ import { TodoService } from './todo.service';
 import { IdsInput, TodoInput, UpdateTodoInput } from './dto/todo-input.dto';
 import { Todo, TodoDelete } from './entities/todo.entity';
 
-
 @Resolver(() => Todo)
 export class TodoResolver {
   constructor(private readonly _todoService: TodoService) {}
@@ -14,7 +13,7 @@ export class TodoResolver {
 
   /* ---------------------------------- READ ---------------------------------- */
 
-  @Query(() => Todo)
+  @Query(() => [Todo])
   findAll() {
     return this._todoService.findAll();
   }
@@ -51,7 +50,7 @@ export class TodoResolver {
   }
 
   @Mutation(() => Number)
-  deleteMany(@Args('IdsInput') payload: IdsInput) {
+  deleteMany(@Args('IdsInput', { type: () => [String] }) payload: string[]) {
     return this._todoService.deleteManybyIds(payload);
   }
 }

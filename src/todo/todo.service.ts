@@ -57,21 +57,18 @@ export class TodoService {
 
   /* --------------------------------- DELETE --------------------------------- */
   async deleteOne(id: string) {
-const res = await this.todoModel.findByIdAndDelete(id);
-return res;
-
+    const res = await this.todoModel.findByIdAndDelete(id);
+    return res;
   }
 
   async deleteAll() {
-const res = await this.todoModel.deleteMany();
+    const res = await this.todoModel.deleteMany();
 
-return res.deletedCount;
-
+    return res.deletedCount;
   }
 
-  async deleteManybyIds(ids: IdsInput) {
-    const data = ids.id;
-    const response = await this.todoModel.deleteMany().where('id').in(data);
+  async deleteManybyIds(ids: string[]) {
+    const response = await this.todoModel.deleteMany().where('_id').in(ids);
     return response.deletedCount;
   }
 }

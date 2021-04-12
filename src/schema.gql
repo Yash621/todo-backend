@@ -13,7 +13,7 @@ type Todo {
 }
 
 type Query {
-  findAll: Todo!
+  findAll: [Todo!]!
   findOne(id: String!): Todo!
 }
 
@@ -22,7 +22,7 @@ type Mutation {
   updateOne(UpdateTodoInput: UpdateTodoInput!): [Todo!]!
   delete(id: String!): Todo!
   deleteAll: Float!
-  deleteMany(IdsInput: IdsInput!): Float!
+  deleteMany(IdsInput: [String!]!): Float!
 }
 
 input TodoInput {
@@ -42,9 +42,4 @@ input UpdateTodoInput {
 
   """id of the todolist"""
   id: String!
-}
-
-input IdsInput {
-  """ids of the todolist"""
-  id: [String!]!
 }
