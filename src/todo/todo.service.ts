@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
+import { Model, Types } from 'mongoose';
 import { TODO } from 'src/constants';
 
 import { IdsInput, TodoInput, UpdateTodoInput } from './dto/todo-input.dto';
@@ -12,7 +12,6 @@ export class TodoService {
   constructor(@InjectModel(TODO) private readonly todoModel: Model<Todo>) {}
   /* --------------------------------- CREATE --------------------------------- */
   async create(payload: TodoInput) {
-    console.log(payload.isCompleted);
     const todo = await this.todoModel.create({
       task: payload.task,
       isCompleted: payload.isCompleted,
@@ -36,23 +35,20 @@ export class TodoService {
   }
   /* --------------------------------- UPDATE --------------------------------- */
   async updateOne(payload: UpdateTodoInput) {
-    if (payload.task) {
-      const todo = await this.todoModel.updateOne(
-        { id: payload.id },
-        {
-          task: payload.task,
-          isCompleted: payload.isCompleted,
-        },
-      );
-      return todo;
-    }
+    console.log(payload);
     const todo = await this.todoModel.updateOne(
-      { id: payload.id },
+      { _id: payload.id },
       {
+        task: payload.task,
         isCompleted: payload.isCompleted,
       },
     );
-    return todo;
+    console.log(todo);
+    return {
+      task: payload.task,
+      _id: payload.id,
+      isCompleted: payload.isCompleted,
+    };
   }
 
   /* --------------------------------- DELETE --------------------------------- */

@@ -33,7 +33,7 @@ export class TodoResolver {
   }
   /* --------------------------------- UPDATE --------------------------------- */
 
-  @Mutation(() => [Todo])
+  @Mutation(() => Todo)
   updateOne(@Args('UpdateTodoInput') payload: UpdateTodoInput) {
     return this._todoService.updateOne(payload);
   }
